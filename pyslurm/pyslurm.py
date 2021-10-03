@@ -48,7 +48,7 @@ if __name__ == '__main__':
                     dev=args.devel,
                     exclusive=args.exclusive)
 
-    # Check if testing was required. Exit program if any test requested.
+    # Check if testing was requested. Exit program if any test requested.
     if args.test_gaussian:
         job = GaussianJob(config=config)
         job.make_test_files()
@@ -61,7 +61,7 @@ if __name__ == '__main__':
         job = MRChemJob(config=config)
         job.make_test_files()
         debug('MRChem test files generated.', args.verbose)
-    if any([args.test_gaussian, args.test_orca, args.test_mrchem]):
+    if testing:
         sys.exit()
 
     # Read input and determine the code
@@ -106,5 +106,6 @@ if __name__ == '__main__':
         debug(f'File written to {job.jobfile}', args.verbose)
 
     if args.execute:
+        debug('Submitting to queue...', args.verbose)
         subprocess.call(['sbatch', job.jobfile])
 

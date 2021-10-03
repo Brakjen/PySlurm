@@ -72,7 +72,6 @@ class Job:
     @staticmethod
     def load_default_environment():
         try:
-            print(os.path.join(ROOT, 'default_environments.json'))
             with open(os.path.join(ROOT, 'default_environments.json')) as f:
                 return json.loads(f.read())
 

@@ -64,7 +64,9 @@ class Config:
         self.add_section('output', self.input + self.ext_log)
         self.add_section('error', self.input + self.ext_err)
         self.add_section('time', self.timelimit)
-        self.add_section('partition', self.partition)
+
+        if self.cluster.lower() != 'fram':
+            self.add_section('partition', self.partition)
 
         # Development job?
         if self.dev:

@@ -2,6 +2,7 @@
 
 import os
 import sys
+import subprocess
 
 from config import Config
 from jobs import Job, MRChemJob, GaussianJob, ORCAJob, resolve_code
@@ -103,3 +104,7 @@ if __name__ == '__main__':
     else:
         job.write()
         debug(f'File written to {job.jobfile}', args.verbose)
+
+    if args.execute:
+        subprocess.call(['sbatch', job.jobfile])
+

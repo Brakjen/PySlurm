@@ -3,6 +3,8 @@ import sys
 import json
 import os
 
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 def resolve_code(f):
     """Reads input file and determines whether it is meant for Gaussian, ORCA, or MRChem.
@@ -70,7 +72,8 @@ class Job:
     @staticmethod
     def load_default_environment():
         try:
-            with open('../default_environments.json') as f:
+            print(os.path.join(ROOT, 'default_environments.json'))
+            with open(os.path.join(ROOT, 'default_environments.json')) as f:
                 return json.loads(f.read())
 
         except FileNotFoundError:

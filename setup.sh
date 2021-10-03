@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# This file will make the pyslurm.py script executable by adding the PySlurm base directory
-# to your PATH
+# This script links pyslurm.py to an alias in ~/bin, and makes it executable
+EXE=$(pwd)/pyslurm/pyslurm.py
+ln -s $EXE $HOME/bin/pyslurm.py
 
-# Add to PATH
-DIR="$(pwd)/pyslurm"
-echo PATH="$DIR:$PATH" >> ~/.bashrc
-source "$HOME/.bashrc"
+chmod +x $EXE
 
-# Add executable permissions
-chmod +x "$DIR/pyslurm.py"

@@ -20,13 +20,15 @@ if __name__ == '__main__':
     parser = cli()
     args = parser.parse_args()
 
+    testing = True if any([args.test_gaussian, args.test_orca, args.test_mrchem]) else False
+
     # Manually convert convenience timelimit units to slurm format
     if args.stime is not None:
         timelimit = args.stime
     else:
         timelimit = f'{args.days}-{args.hours}:{args.minutes}:{args.seconds}'
         if timelimit == '00-00:00:00':
-            debug('Warning: Walltime set to zero', True)
+            debug('Warning: Walltime set to zero', not testing)
 
     # Initialize the slurm configuration
     config = Config(loc=args.loc,

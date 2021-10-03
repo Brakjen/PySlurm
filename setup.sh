@@ -4,9 +4,9 @@
 # to your PATH
 
 # Add to PATH
-DIR="echo $(pwd)/pyslurm"
-echo PATH=$DIR:$PATH >> ~/.bashrc
-source ~/.bashrc
+DIR="$(pwd)/pyslurm"
+echo PATH="$DIR:$PATH" >> ~/.bashrc
+source "$HOME/.bashrc"
 
 # Add executable permissions
-chmod +x $DIR/pyslurm.py
+chmod +x "$DIR/pyslurm.py"

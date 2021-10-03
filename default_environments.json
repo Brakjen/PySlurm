@@ -1,6 +1,5 @@
 {
   "fram": {
-    "account": "nn4654k",
     "orca": {
       "modules": ["OpenMPI/4.0.5-GCC-10.2.0"],
       "exe": "$HOME/software/orca_5_0_1_linux_x86-64_shared_openmpi411",
@@ -16,7 +15,6 @@
     }
   },
   "saga": {
-    "account": "nn4654k",
     "orca": {
       "modules": ["OpenMPI/4.1.1-GCC-10.3.0"],
       "exe": "$HOME/software/orca_5_0_1_linux_x86-64_shared_openmpi411",
@@ -32,7 +30,6 @@
     }
   },
   "betzy": {
-    "account": "nn4654k",
     "orca": {
       "modules": ["/path/to/modules"],
       "exe": "/path/to/orca/executable",

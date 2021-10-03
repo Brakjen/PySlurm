@@ -156,7 +156,7 @@ class MRChemJob(Job):
         c.qos = 'Devel'
         c.hybrid = True
         c.input = fname
-        c.devel = True
+        c.dev = True
         c.loc = False
         c.ntasks = 2
         c.cpus = 4
@@ -216,7 +216,7 @@ class GaussianJob(Job):
         c.qos = 'Devel'
         c.hybrid = False
         c.input = fname
-        c.devel = True
+        c.dev = True
         c.loc = True
         c.nodes = 1
         c.ntasks = 8
@@ -279,7 +279,7 @@ class ORCAJob(Job):
         c.qos = 'Devel'
         c.hybrid = False
         c.input = fname
-        c.devel = True
+        c.dev = True
         c.loc = False
         c.ntasks = 8
         c.build_config()

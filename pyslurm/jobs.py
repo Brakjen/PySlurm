@@ -209,7 +209,7 @@ class GaussianJob(Job):
              '',
              '0 1',
              'He 0.0 0.0 0.0',
-             '']
+             '\n']
 
         c = self.config
         c.timelimit = '10:00'

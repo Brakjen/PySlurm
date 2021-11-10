@@ -65,7 +65,7 @@ class Config:
         self.add_section('error', self.input + self.ext_err)
         self.add_section('time', self.timelimit)
 
-        if self.cluster.lower() != 'fram':
+        if self.partition != 'Normal':
             self.add_section('partition', self.partition)
 
         # Development job?

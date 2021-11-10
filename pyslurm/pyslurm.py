@@ -67,6 +67,10 @@ if __name__ == '__main__':
     # Read input and determine the code
     # Then construct the job classes
     g, o, m = resolve_code(config.input + config.ext_inp)
+    if g == o == m == False:
+        if args.code == 'orca': o = True
+        if args.code == 'gaussian': g = True
+        if args.code == 'mrchem': m = True
     if g:
         debug(f'Gaussian input detected', args.verbose)
         job = GaussianJob(config=config,
@@ -85,7 +89,9 @@ if __name__ == '__main__':
                         init_orbs=args.guess_orb,
                         init_check=args.guess_check,
                         need_files=args.copy_to,
-                        save_files=args.copy_back)
+                        save_files=args.copy_back,
+                        json=args.json,
+                        version=args.version)
     else:
         debug('Code not determined', args.verbose)
         job = Job(config=config)

@@ -17,6 +17,7 @@ def cli():
     job.add_argument('-s', '--suffix', type=str, help='Suffix appended to job name in queue')
     job.add_argument('-c', '--cluster', choices=['saga', 'fram', 'betzy'], type=str, help='Which cluster to submit to.')
     job.add_argument('-X', '--execute', action='store_true', help='Submit job to the queue')
+    job.add_argument('--code', type=str, choices=['orca', 'gaussian', 'mrchem'], help='QC code input was made for')
 
     # SLURM related arguments
     slurm = parser.add_argument_group('SLURM related arguments.')
@@ -41,6 +42,8 @@ def cli():
 
     # MRChem related arguments
     mrc = parser.add_argument_group('MRChem related arguments')
+    mrc.add_argument('-V', '--version', type=str, help='Path to installed mrchem input parser (main executable)')
+    mrc.add_argument('--json', action='store_true', help='Pass JSON option to MRChem launcher for JSON input file.')
     mrc.add_argument('--guess-orb', type=str, metavar='PATH', help='Full path to directory holding initial guess orbitals. Will be copied to $SCRATCH/initial_guess.')
     mrc.add_argument('--guess-check', type=str, metavar='PATH', help='Full path to directory holding checkpoint orbitals. Will be copied to $SCRATCH/checkpoint.')
     mrc.add_argument('--rm-orb', action='store_true', help='Do not copy optimized orbitals to storage.')

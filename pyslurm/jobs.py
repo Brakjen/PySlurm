@@ -24,7 +24,7 @@ def resolve_code(f):
     elif '#p' in s or '# p' in s:
         is_gaussian = True
     else:
-        raise UnknownJonError(f'Code could not be resolved.')
+        return False, False, False
 
     test = not sum([is_gaussian, is_orca, is_mrchem]) > 1
     assert test, UnknownJonError(f'Multiple codes detected. Sum = {test}')
@@ -80,14 +80,16 @@ class Job:
 
 
 class MRChemJob(Job):
-    def __init__(self, store_orbs=None, store_chk=None, init_orbs=None, init_check=None, checkout=None, **kwargs):
+    def __init__(self, store_orbs=None, store_chk=None, init_orbs=None, init_check=None, checkout=None, json=None, version=None, **kwargs):
         self.store_orbs = store_orbs if store_orbs is not None else False
         self.store_chk = store_chk if store_chk is not None else False
         self.init_orbs = init_orbs if init_orbs is not None else False
         self.init_chk = init_check if init_check is not None else False
+        self.json = json if json is not None else False
 
         Job.__init__(self, **kwargs)
         self.code = 'mrchem'
+        self.version = version if version is not None else self.environment[self.cluster][self.code]['exe']
         self.job = self.build_job()
 
     def build_job(self):
@@ -108,13 +110,14 @@ class MRChemJob(Job):
         if self.init_chk:
             job.append(f'cp -r {self.init_chk} checkpoint')
 
-        exe = self.environment[self.cluster][self.code]['exe']
         if self.config.hybrid:
             job.append(f'export OMP_NUM_THREADS={self.config.cpus}')
-        job.append(f'{exe} --launcher \'srun -n {self.config.ntasks}\' {self.config.input} > {self.outputfile}')
+
+        launcher = f'\'srun -n {self.config.ntasks}\''
+        job.append(f'{self.version} --launcher {launcher} {"--json" if self.json else ""} {self.config.input}')
         job.append('')
         job.append(f'savefile {self.outputfile}')
-        job.append(f'savefile {self.config.input + "json"}')
+        job.append(f'savefile {self.config.input}.json')
         for f in self.save_files:
             job.append(f'savefile {f}')
 

@@ -40,7 +40,7 @@ class Config:
         self.input = input if input is not None else 'JobName'
         self.partition = partition if partition is not None else 'Normal'
         self.hybrid = hybrid
-        self.qos = 'Devel' if self.dev else None
+        self.qos = 'devel' if self.dev else None
         self.cluster = cluster if cluster is not None else resolve_cluster()
         self.exclusive = exclusive
         self.display_name = self.input if display_name is None else display_name

@@ -38,6 +38,7 @@ def cli():
     slurm.add_argument('-H', '--hybrid', action='store_true', help='Hybrid OMP+MPI parallel scheme.')
     slurm.add_argument('-L', '--loc', action='store_true', help='Explicitply request number of nodes.')
     slurm.add_argument('-E', '--exclusive', action='store_true', help='Request full nodes (discouraged).')
+    slurm.add_argument('--display-name', type=str, help='Name used in the SLURM queue (not in file names)')
 
     # MRChem related arguments
     mrc = parser.add_argument_group('MRChem related arguments')

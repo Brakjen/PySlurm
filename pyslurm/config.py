@@ -21,7 +21,7 @@ class SlurmSyntaxError(ValueError):
 class Config:
     def __init__(self, loc=False, dev=False, hybrid=False, account=None, timelimit=None, memory=None, nodes=None,
                  ntasks=None, cpus=None, ext_inp=None, ext_out=None, ext_log=None, ext_err=None, mail=None,
-                 input=None, partition=None, cluster=None, memtype=None, exclusive=False):
+                 input=None, partition=None, cluster=None, memtype=None, exclusive=False, display_name=None):
 
         self.account = account if account is not None else ''
         self.timelimit = timelimit if timelimit is not None else '30:00'
@@ -43,6 +43,7 @@ class Config:
         self.qos = 'Devel' if self.dev else None
         self.cluster = cluster if cluster is not None else resolve_cluster()
         self.exclusive = exclusive
+        self.display_name = self.input if display_name is None else display_name
 
         assert self.memory.lower().endswith('b'), 'Invalid memory units'
         if self.ext_inp in self.input:
@@ -60,7 +61,7 @@ class Config:
         self.config = ['#!/bin/bash', '']
         self.add_section('account', self.account)
         self.add_section('mail-type', self.mail)
-        self.add_section('job-name', self.input)
+        self.add_section('job-name', self.display_name)
         self.add_section('output', self.input + self.ext_log)
         self.add_section('error', self.input + self.ext_err)
         self.add_section('time', self.timelimit)

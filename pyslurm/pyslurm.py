@@ -46,7 +46,8 @@ if __name__ == '__main__':
                     partition=args.partition,
                     cluster=args.cluster,
                     dev=args.devel,
-                    exclusive=args.exclusive)
+                    exclusive=args.exclusive,
+                    display_name=args.display_name)
 
     # Check if testing was requested. Exit program if any test requested.
     if args.test_gaussian:

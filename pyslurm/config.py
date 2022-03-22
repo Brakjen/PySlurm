@@ -1,4 +1,5 @@
 import socket
+from pathlib import Path
 
 
 def resolve_cluster():
@@ -43,7 +44,9 @@ class Config:
         self.qos = 'devel' if self.dev else None
         self.cluster = cluster if cluster is not None else resolve_cluster()
         self.exclusive = exclusive
-        self.display_name = self.input if display_name is None else display_name
+        
+        self.input_stem = Path(self.input).stem
+        self.display_name = self.input_stem if display_name is None else display_name
 
         assert self.memory.lower().endswith('b'), 'Invalid memory units'
         if self.ext_inp in self.input:
@@ -62,8 +65,8 @@ class Config:
         self.add_section('account', self.account)
         self.add_section('mail-type', self.mail)
         self.add_section('job-name', self.display_name)
-        self.add_section('output', self.input + self.ext_log)
-        self.add_section('error', self.input + self.ext_err)
+        self.add_section('output', self.input_stem + self.ext_log)
+        self.add_section('error', self.input_stem + self.ext_err)
         self.add_section('time', self.timelimit)
 
         if self.partition != 'Normal':

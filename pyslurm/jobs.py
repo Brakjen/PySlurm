@@ -59,7 +59,7 @@ class Job:
 
     def write(self):
         parent = Path(self.config.input).parent
-        jobname = Path(self.config.input).stem.with_suffix(self.ext[1:])
+        jobname = Path(self.config.input).stem + self.ext
         os.chdir(parent)
         with open(jobname, 'w') as f:
             f.write(str(self.config)+'\n')

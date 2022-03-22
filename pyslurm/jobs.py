@@ -2,6 +2,7 @@ import json
 import sys
 import json
 import os
+from pathlib import Path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -57,8 +58,8 @@ class Job:
         pass
 
     def write(self):
-        parent = self.config.input.parent
-        jobname = self.config.input.stem + self.ext
+        parent = Path(self.config.input).parent
+        jobname = Path(self.config.input).stem.with_suffix(self.ext[1:])
         os.chdir(parent)
         with open(jobname, 'w') as f:
             f.write(str(self.config)+'\n')

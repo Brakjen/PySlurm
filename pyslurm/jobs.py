@@ -118,26 +118,26 @@ class MRChemJob(Job):
             job.append(f'export OMP_NUM_THREADS={self.config.cpus}')
 
         launcher = f'\'srun -n {self.config.ntasks}\''
-        job.append(f'{self.version} --launcher {launcher} {"--json" if self.json else ""} {self.config.input}')
+        job.append(f'{self.version} --launcher {launcher} {"--json" if self.json else ""} {Path(self.config.input).stem}')
         job.append('')
         job.append(f'savefile {self.outputfile}')
         job.append(f'savefile {self.config.input}.json')
         for f in self.save_files:
-            job.append(f'savefile {f}')
+            job.append(f'savefile {Path(f).stem}')
 
         if self.store_orbs:
             job.append('')
             job.append(f'DIR=/cluster/projects/{self.config.account}/$(whoami)/MWOrbitals/${{SLURM_JOBID}}')
             job.append(f'mkdir -p $DIR')
             job.append(f'cp orbitals/* $DIR/')
-            job.append(f'echo $DIR > ${{SLURM_SUBMIT_DIR}}/{self.config.input}.orbitals')
+            job.append(f'echo $DIR > ${{SLURM_SUBMIT_DIR}}/{Path(self.config.input).stem}.orbitals')
 
         if self.store_chk:
             job.append('')
             job.append(f'DIR=/cluster/projects/{self.config.account}/$(whoami)/MWCheckpoints/${{SLURM_JOBID}}')
             job.append(f'mkdir -p $DIR')
             job.append(f'cp checkpoint/* $DIR/')
-            job.append(f'echo $DIR > ${{SLURM_SUBMIT_DIR}}/{self.config.input}.checkpoint')
+            job.append(f'echo $DIR > ${{SLURM_SUBMIT_DIR}}/{Path(self.config.input).stem}.checkpoint')
 
         job.append('')
         job.append('exit 0')

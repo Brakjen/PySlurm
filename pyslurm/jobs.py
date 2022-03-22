@@ -57,7 +57,10 @@ class Job:
         pass
 
     def write(self):
-        with open(self.config.input + self.ext, 'w') as f:
+        parent = self.config.input.parent
+        jobname = self.config.input.stem + self.ext
+        os.chdir(parent)
+        with open(jobname, 'w') as f:
             f.write(str(self.config)+'\n')
             f.write(str(self))
 

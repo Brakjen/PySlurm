@@ -8,6 +8,9 @@ Run `setup.py` to add the script to your `PATH`:
 python setup.py
 ```
 
+## Dependencies
+The scripts should run with a standard Python installation, no external modules needed.
+
 ## Usage
 ```
 usage: pyslurm.py [-h] [-v] [-f] [-i INPUT] [-o OUTPUT] [-d DEST] [-I ID]
